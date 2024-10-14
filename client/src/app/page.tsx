@@ -1,101 +1,316 @@
-import Image from "next/image";
+"use client";
+import Heading from "../components/heading";
+import InputBox from "../components/input_box";
+import Checkbox from "../components/checkbox";
+import Dropdown from "../components/dropdown";
+import { useEffect, useState } from "react";
+
+interface DeliverType {
+  letter: boolean;
+  parcel: boolean;
+  ems: boolean;
+}
+
+interface Screen0Props {
+  setOfficeType: (value: string) => void;
+  setCompany: (value: string) => void;
+  setCustomFee: (value: boolean) => void;
+  setSubValue: (value: string) => void;
+  setLocationName: (value: string) => void;
+  setLocationId: (value: string) => void;
+  setIpsCode: (value: string) => void;
+}
+
+interface Screen1Props {
+  setDeliverTypes: (
+    value: DeliverType | ((prev: DeliverType) => DeliverType)
+  ) => void;
+  setOfflineCash: (value: boolean) => void;
+  setOfflineStamp: (value: boolean) => void;
+}
+
+interface Screen2Props {
+  setUnitCode: (value: string) => void;
+  setSubValueCenterCode: (value: string) => void;
+  setValueCenterCode: (value: string) => void;
+  setCash: (value: number) => void;
+  setStock: (value: number) => void;
+}
+
+const Screen0 = ({
+  setOfficeType,
+  setCompany,
+  setCustomFee,
+  setSubValue,
+  setLocationName,
+  setLocationId,
+  setIpsCode,
+}: Screen0Props) => {
+  return (
+    <div className="grid p-4 w-full">
+      <div className="flex flex-wrap">
+        <Dropdown
+          label="Location Type"
+          options={["Post Office", "Sub Post Office"]}
+          onSelect={(value) => setOfficeType(value)}
+        />
+        <Checkbox
+          label="Custom fee to be collected at office"
+          onChange={(checked) => setCustomFee(checked)}
+        />
+      </div>
+      <Dropdown
+        label="Company"
+        options={["Company1", "Company2"]}
+        onSelect={(value: string) => setCompany(value)}
+      />
+      <Dropdown
+        label="Sub Value Center"
+        options={["Option1", "Option2"]}
+        onSelect={(value: string) => setSubValue(value)}
+      />
+      <InputBox
+        placeholder="Location Name"
+        onChange={(event) => setLocationName(event)}
+      />
+      <div className="flex w-full border-black">
+        <InputBox
+          placeholder="Location ID"
+          onChange={(value: string) => setLocationId(value)}
+        />
+        <InputBox
+          placeholder="IPS Code"
+          onChange={(value: string) => setIpsCode(value)}
+        />
+      </div>
+    </div>
+  );
+};
+
+const Screen1 = ({
+  setDeliverTypes,
+  setOfflineCash,
+  setOfflineStamp,
+}: Screen1Props) => {
+  return (
+    <div className="grid p-4 w-full lg:grid-cols-2 gap-2">
+      <div className="border p-2">
+        <h1>This office delivers to</h1>
+        <div className="grid h-fit">
+          <Checkbox
+            label="Letter"
+            onChange={(checked) =>
+              setDeliverTypes((prev: DeliverType) => ({
+                ...prev,
+                letter: checked,
+              }))
+            }
+          />
+          <Checkbox
+            label="Parcel"
+            onChange={(checked) =>
+              setDeliverTypes((prev: DeliverType) => ({
+                ...prev,
+                parcel: checked,
+              }))
+            }
+          />
+          <Checkbox
+            label="EMS"
+            onChange={(checked) =>
+              setDeliverTypes((prev: DeliverType) => ({
+                ...prev,
+                ems: checked,
+              }))
+            }
+          />
+        </div>
+      </div>
+      <div className="grid border p-2">
+        <Checkbox
+          label="Allow Offline Cash Transaction"
+          onChange={(checked) => setOfflineCash(checked)}
+        />
+        <Checkbox
+          label="Allow OfflineStamp Transaction"
+          onChange={(checked) => setOfflineStamp(checked)}
+        />
+      </div>
+    </div>
+  );
+};
+
+const Screen2 = ({
+  setUnitCode,
+  setSubValueCenterCode,
+  setValueCenterCode,
+  setCash,
+  setStock,
+}: Screen2Props) => {
+  return (
+    <div className="grid p-4 w-full lg:grid-cols-2 gap-2">
+      <InputBox
+        placeholder="Unit Code"
+        onChange={(value: string) => setUnitCode(value)}
+      />
+      <InputBox
+        placeholder="Sub Value Center Code"
+        onChange={(value: string) => setSubValueCenterCode(value)}
+      />
+      <InputBox
+        placeholder="Value Center Code"
+        onChange={(value: string) => setValueCenterCode(value)}
+      />
+      <InputBox
+        placeholder="Cash"
+        onChange={(event) => setCash(Number(event))}
+      />
+      <InputBox
+        placeholder="Stock"
+        onChange={(event) => setStock(Number(event))}
+      />
+    </div>
+  );
+};
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [screen, setScreen] = useState<number>(2);
+  const [officeType, setOfficeType] = useState<string>("");
+  const [company, setCompany] = useState<string>("");
+  const [customFee, setCustomFee] = useState<boolean>(false);
+  const [subValueCenter, setSubValue] = useState<string>("");
+  const [locationName, setLocationName] = useState<string>("");
+  const [locationId, setLocationId] = useState<string>("");
+  const [ipscode, setIpsCode] = useState<string>("");
+  const [deliverTypes, setDeliverTypes] = useState<DeliverType>({
+    letter: false,
+    parcel: false,
+    ems: false,
+  });
+  const [offlineCash, setOfflineCash] = useState<boolean>(false);
+  const [offlineStamp, setOfflineStamp] = useState<boolean>(false);
+  const [unitCode, setUnitCode] = useState<string>("");
+  const [subValueCenterCode, setSubValueCenterCode] = useState<string>("");
+  const [valueCenterCode, setValueCenterCode] = useState<string>("");
+  const [cash, setCash] = useState<number>(0);
+  const [stock, setStock] = useState<number>(0);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    console.log({
+      officeType,
+      company,
+      customFee,
+      subValueCenter,
+      locationName,
+      locationId,
+      ipscode,
+      deliverTypes,
+      offlineCash,
+      offlineStamp,
+    });
+  }, [
+    officeType,
+    company,
+    customFee,
+    subValueCenter,
+    locationName,
+    locationId,
+    ipscode,
+    deliverTypes,
+    offlineCash,
+    offlineStamp,
+  ]);
+
+  return (
+    <section className="grid place-items-center h-screen ">
+      <div className="grid place-items-center p-4 border-black border w-full lg:w-1/2">
+        <Heading />
+        {screen === 0 && (
+          <Screen0
+            setOfficeType={setOfficeType}
+            setCompany={setCompany}
+            setCustomFee={setCustomFee}
+            setSubValue={setSubValue}
+            setLocationName={setLocationName}
+            setLocationId={setLocationId}
+            setIpsCode={setIpsCode}
+          />
+        )}
+        {screen === 1 && (
+          <Screen1
+            setDeliverTypes={setDeliverTypes}
+            setOfflineCash={setOfflineCash}
+            setOfflineStamp={setOfflineStamp}
+          />
+        )}
+        {screen === 2 && (
+          <Screen2
+            setUnitCode={setUnitCode}
+            setSubValueCenterCode={setSubValueCenterCode}
+            setValueCenterCode={setValueCenterCode}
+            setCash={setCash}
+            setStock={setStock}
+          />
+        )}
+        <div className="w-full grid place-items-end">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-32"
+            onClick={() => {
+              if (screen < 3) {
+                if (screen === 0) {
+                  if (
+                    officeType &&
+                    company &&
+                    subValueCenter &&
+                    locationName &&
+                    locationId &&
+                    ipscode
+                  ) {
+                    setScreen(screen + 1);
+                  } else {
+                    alert("Please fill all the fields");
+                  }
+                }
+                if (screen === 1) {
+                  if (Object.values(deliverTypes).includes(true)) {
+                    setScreen(screen + 1);
+                  } else {
+                    alert("Please select at least one deliver type");
+                  }
+                }
+                if (screen === 2) {
+                  if (unitCode && subValueCenterCode && valueCenterCode) {
+                    setScreen(screen + 1);
+                  } else {
+                    alert("Please fill all the fields");
+                  }
+                }
+              } else {
+                console.log({
+                  officeType,
+                  company,
+                  customFee,
+                  subValueCenter,
+                  locationName,
+                  locationId,
+                  ipscode,
+                  deliverTypes,
+                  offlineCash,
+                  offlineStamp,
+                  unitCode,
+                  subValueCenterCode,
+                  valueCenterCode,
+                  cash,
+                  stock,
+                });
+              }
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {screen < 3 ? "Next" : "Submit"}
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+    </section>
   );
 }
