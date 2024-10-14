@@ -11,6 +11,12 @@ interface DeliverType {
   ems: boolean;
 }
 
+interface PostGlobalConfig {
+  boxKey: boolean;
+  eBill: boolean;
+  EMO: boolean;
+}
+
 interface Screen0Props {
   setOfficeType: (value: string) => void;
   setCompany: (value: string) => void;
@@ -35,6 +41,9 @@ interface Screen2Props {
   setValueCenterCode: (value: string) => void;
   setCash: (value: number) => void;
   setStock: (value: number) => void;
+  setPostGlobalInstalled: (value: boolean) => void;
+  setPostGlobalConfig: (value: PostGlobalConfig | ((prev: PostGlobalConfig) => PostGlobalConfig)) => void;
+  postGlobalInstalled: boolean;
 }
 
 const Screen0 = ({
@@ -95,7 +104,7 @@ const Screen1 = ({
   return (
     <div className="grid p-4 w-full lg:grid-cols-2 gap-2">
       <div className="border p-2">
-        <h1>This office delivers to</h1>
+        <h1 className="font-bold">This office delivers to</h1>
         <div className="grid h-fit">
           <Checkbox
             label="Letter"
@@ -146,35 +155,65 @@ const Screen2 = ({
   setValueCenterCode,
   setCash,
   setStock,
+  setPostGlobalInstalled,
+  setPostGlobalConfig,
+  postGlobalInstalled
 }: Screen2Props) => {
+
   return (
-    <div className="grid p-4 w-full lg:grid-cols-2 gap-2">
-      <InputBox
-        placeholder="Unit Code"
-        onChange={(value: string) => setUnitCode(value)}
-      />
-      <InputBox
-        placeholder="Sub Value Center Code"
-        onChange={(value: string) => setSubValueCenterCode(value)}
-      />
-      <InputBox
-        placeholder="Value Center Code"
-        onChange={(value: string) => setValueCenterCode(value)}
-      />
-      <InputBox
-        placeholder="Cash"
-        onChange={(event) => setCash(Number(event))}
-      />
-      <InputBox
-        placeholder="Stock"
-        onChange={(event) => setStock(Number(event))}
-      />
+    <div className="w-full grid gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-2 w-full">
+        <div className="p-2 border">
+          <h1 className="font-bold ps-2 underline">Finance Dimension Code</h1>
+          <div className="grid">
+            <InputBox
+              placeholder="Unit Code"
+              onChange={(value: string) => setUnitCode(value)}
+            />
+            <InputBox
+              placeholder="Sub Value Center Code"
+              onChange={(value: string) => setSubValueCenterCode(value)}
+            />
+            <InputBox
+              placeholder="Value Center Code"
+              onChange={(value: string) => setValueCenterCode(value)}
+            />
+          </div>
+        </div>
+        <div className="p-2 border">
+          <h1 className="font-bold ps-2 underline">
+            Authorized Maximum Balance
+          </h1>
+          <div className="grid">
+            <InputBox
+              placeholder="Cash"
+              onChange={(value: string) => setCash(parseInt(value))}
+            />
+            <InputBox
+              placeholder="Sub Value Center Code"
+              onChange={(value: string) => setStock(parseInt(value))}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="border">
+        <Checkbox
+          label="Post Global Installed"
+          onChange={(checked) => setPostGlobalInstalled(checked)}
+        />
+        {postGlobalInstalled && (<div className="grid p-4">
+          <Checkbox label="Box key deposite applicable?" onChange={
+            (checked) => setPostGlobalConfig((prev: PostGlobalConfig) => ({...prev, boxKey: checked}))
+          }/>
+
+        </div>)}
+      </div>
     </div>
   );
 };
 
 export default function Home() {
-  const [screen, setScreen] = useState<number>(2);
+  const [screen, setScreen] = useState<number>(0);
   const [officeType, setOfficeType] = useState<string>("");
   const [company, setCompany] = useState<string>("");
   const [customFee, setCustomFee] = useState<boolean>(false);
@@ -194,6 +233,12 @@ export default function Home() {
   const [valueCenterCode, setValueCenterCode] = useState<string>("");
   const [cash, setCash] = useState<number>(0);
   const [stock, setStock] = useState<number>(0);
+  const [postGlobalInstalled, setPostGlobalInstalled] = useState<boolean>(false);
+  const [postGlobalConfig, setPostGlobalConfig] = useState<PostGlobalConfig>({
+    boxKey: false,
+    eBill: false,
+    EMO: false,
+  });
 
   useEffect(() => {
     console.log({
@@ -250,6 +295,9 @@ export default function Home() {
             setValueCenterCode={setValueCenterCode}
             setCash={setCash}
             setStock={setStock}
+            setPostGlobalInstalled={setPostGlobalInstalled}
+            setPostGlobalConfig={setPostGlobalConfig}
+            postGlobalInstalled={postGlobalInstalled}
           />
         )}
         <div className="w-full grid place-items-end">
@@ -280,7 +328,7 @@ export default function Home() {
                   }
                 }
                 if (screen === 2) {
-                  if (unitCode && subValueCenterCode && valueCenterCode) {
+                  if (unitCode && subValueCenterCode && valueCenterCode && cash && stock && postGlobalInstalled && Object.values(postGlobalConfig).includes(true)) {
                     setScreen(screen + 1);
                   } else {
                     alert("Please fill all the fields");
@@ -303,6 +351,8 @@ export default function Home() {
                   valueCenterCode,
                   cash,
                   stock,
+                  postGlobalInstalled,
+                  postGlobalConfig,
                 });
               }
             }}

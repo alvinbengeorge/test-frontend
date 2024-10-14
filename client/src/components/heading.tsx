@@ -1,7 +1,7 @@
 export default function Heading() {
   return (
     <div className="">
-      <h1 className="flex font-bold text-3xl text-center text-pretty border p-1 underline">
+      <h1 className="flex font-bold text-3xl text-center text-pretty border p-1">
         <span>
           <svg
             fill="#000000"
