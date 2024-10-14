@@ -205,6 +205,12 @@ const Screen2 = ({
           <Checkbox label="Box key deposite applicable?" onChange={
             (checked) => setPostGlobalConfig((prev: PostGlobalConfig) => ({...prev, boxKey: checked}))
           }/>
+          <Checkbox label="This office uses e-Bill Module" onChange={
+            (checked) => setPostGlobalConfig((prev: PostGlobalConfig) => ({...prev, eBill: checked}))
+          }/>
+          <Checkbox label="This office uses EMO Module" onChange={
+            (checked) => setPostGlobalConfig((prev: PostGlobalConfig) => ({...prev, EMO: checked}))
+          }/>
 
         </div>)}
       </div>
@@ -252,6 +258,13 @@ export default function Home() {
       deliverTypes,
       offlineCash,
       offlineStamp,
+      unitCode,
+      subValueCenterCode,
+      valueCenterCode,
+      cash,
+      stock,
+      postGlobalInstalled,
+      postGlobalConfig
     });
   }, [
     officeType,
@@ -264,6 +277,13 @@ export default function Home() {
     deliverTypes,
     offlineCash,
     offlineStamp,
+    unitCode,
+    subValueCenterCode,
+    valueCenterCode,
+    cash,
+    stock,
+    postGlobalInstalled,
+    postGlobalConfig
   ]);
 
   return (
@@ -300,6 +320,12 @@ export default function Home() {
             postGlobalInstalled={postGlobalInstalled}
           />
         )}
+        {screen === 3 && (
+          <div>
+            
+          </div>
+        )}
+
         <div className="w-full grid place-items-end">
           <button
             type="submit"
