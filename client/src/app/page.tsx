@@ -77,8 +77,8 @@ export default function Home() {
   ]);
 
   return (
-    <section className="grid place-items-center h-screen">
-      <div className="grid place-items-center p-4 border-black border w-full lg:w-1/2 rounded-2xl bg-slate-100">
+    <section className="w-full h-full">
+      <div className="grid place-items-center p-4 w-full h-full rounded-2xl bg-slate-100">
         <Heading />
         {screen === 0 && (
           <Screen0

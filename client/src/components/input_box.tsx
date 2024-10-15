@@ -21,7 +21,7 @@ const InputBox = ({ placeholder, onChange }: InputBoxProps) => {
         placeholder={placeholder}
         onChange={handleChange}
         style={{ padding: "8px", fontSize: "16px" }}
-        className="text-black bg-[#EEEEEE] w-full h-12"
+        className="text-black bg-white w-full h-12 shadow-lg"
       />
     </div>
   );

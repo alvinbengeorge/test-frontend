@@ -14,7 +14,7 @@ const Dropdown = ({ label, options, onSelect }: DropdownProps) => {
 
   return (
     <div className="p-2">
-      <select value={selectedOption} onChange={handleChange} className="text-black bg-[#EEEEEE] w-64 h-12">
+      <select value={selectedOption} onChange={handleChange} className="text-black bg-[#AAAAAA] w-64 h-12">
         <option value="" disabled>
           {label}
         </option>
