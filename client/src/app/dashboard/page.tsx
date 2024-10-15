@@ -180,10 +180,16 @@ export default function Home() {
                         subValueCenterCode &&
                         valueCenterCode &&
                         cash &&
-                        stock &&
-                        postGlobalInstalled &&
-                        Object.values(postGlobalConfig).includes(true)
+                        stock
                       ) {
+                        if (!postGlobalInstalled) {
+                          setPostGlobalConfig({
+                            boxKey: false,
+                            eBill: false,
+                            EMO: false,
+                          });
+                        }
+                          
                         setScreen(screen + 1);
                       } else {
                         alert("Please fill all the fields");
