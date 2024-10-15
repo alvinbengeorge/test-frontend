@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { InputBoxProps } from "../types";
 
-const InputBox = ({ placeholder, onChange }: InputBoxProps) => {
+const InputBox = ({ placeholder, onChange, type = "text" }: InputBoxProps) => {
   const [value, setValue] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,12 +16,12 @@ const InputBox = ({ placeholder, onChange }: InputBoxProps) => {
   return (
     <div className="p-2 w-full">
       <input
-        type="text"
+        type={type}
         value={value}
         placeholder={placeholder}
         onChange={handleChange}
         style={{ padding: "8px", fontSize: "16px" }}
-        className="text-black bg-white w-full h-12 shadow-lg"
+        className="text-black bg-white w-full h-12 shadow-md hover:shadow-2xl duration-500"
       />
     </div>
   );

@@ -1,8 +1,5 @@
 "use client";
-import { useState } from "react";
 import localFont from "next/font/local";
-import Navbar from "../components/navbar";
-import SideBar from "../components/sidebar";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -21,19 +18,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [headerOption, setHeaderOption] = useState<string>("");
-  const [sideBarOption, setSideBarOption] = useState<string>("");
+  
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black`}
       >
-        <Navbar headerOption={headerOption} setHeaderOption={setHeaderOption}/>
-        <div className="flex">
-          <SideBar sideBarOption={sideBarOption} headerOption={headerOption} setSideBarOption={setSideBarOption}/>
-          <main className="flex-1">{children}</main>
-        </div>
+        {children}
       </body>
     </html>
   );

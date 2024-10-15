@@ -13,6 +13,7 @@ export interface DropdownProps {
 export interface InputBoxProps {
   placeholder?: string;
   onChange?: (value: string) => void;
+  type?: string;
 }
 
 export interface DeliverType {
