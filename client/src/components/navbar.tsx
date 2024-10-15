@@ -1,14 +1,24 @@
 export default function Navbar({
     headerOption,
-    setHeaderOption
+    setHeaderOption,
+    setSideBarOption,
+    sideBarOption
 }: {
     headerOption: string;
     setHeaderOption: (value: string) => void;
+    setSideBarOption: (value: string) => void;
+    sideBarOption: string;
 }) {
     return (
         <nav className="bg-gray-800 p-4">
             <div className="flex justify-between items-center">
-                <div>
+                <div className="flex">
+                    <button onClick={() => {
+                        if (sideBarOption === "") setSideBarOption(`${headerOption}-1`)
+                        else setSideBarOption("")
+                    }}><span className="text-3xl text-white p-4">
+                        {sideBarOption === "" ? "☰" : "×"}
+                        </span></button>
                     <h1 className="text-2xl font-bold text-white">Test</h1>
                 </div>
                 <div>

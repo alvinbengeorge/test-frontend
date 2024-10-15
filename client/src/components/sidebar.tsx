@@ -6,8 +6,7 @@ const Option1 = ({
   sideBarOption: string;
 }) => {
   return (
-    <div>
-      <h1 className="text-2xl font-bold">Option 1</h1>
+    <div className={""}>
       <div className="grid gap-2 p-2">
         <button
           onClick={() => setSideBarOption("Option1-1")}
@@ -43,8 +42,7 @@ const Option2 = ({
 }) => {
   return (
     <div>
-      <h1 className="text-2xl font-bold">Option 2</h1>
-      <div className="grid gap-2">
+      <div className="grid gap-2 p-2">
         <button
           onClick={() => setSideBarOption("Option2-1")}
           className={
@@ -52,7 +50,7 @@ const Option2 = ({
             " p-2 rounded-xl"
           }
         >
-          Option 1 - 1
+          Option 2 - 1
         </button>
         <button
           onClick={() => setSideBarOption("Option2-2")}
@@ -61,7 +59,7 @@ const Option2 = ({
             " p-2 rounded-xl"
           }
         >
-          Option 1 - 2
+          Option 2 - 2
         </button>
       </div>
     </div>
@@ -77,8 +75,7 @@ const Option3 = ({
 }) => {
   return (
     <div>
-      <h1 className="text-2xl font-bold">Option 3</h1>
-      <div className="grid gap-2">
+      <div className="grid gap-2 p-2">
         <button
           onClick={() => setSideBarOption("Option3-1")}
           className={
@@ -86,7 +83,7 @@ const Option3 = ({
             " p-2 rounded-xl"
           }
         >
-          Option 1 - 1
+          Option 3 - 1
         </button>
         <button
           onClick={() => setSideBarOption("Option3-2")}
@@ -95,7 +92,7 @@ const Option3 = ({
             " p-2 rounded-xl"
           }
         >
-          Option 1 - 2
+          Option 3 - 2
         </button>
       </div>
     </div>
@@ -114,6 +111,7 @@ export default function SideBar({
   return (
     <div className="h-screen w-64 bg-gray-800 text-white">
       <div className="p-2">
+        <h1 className="text-xl font-bold">{headerOption}</h1>
         <ul className="space-y-4">
           {headerOption === "Option 1" && (
             <Option1

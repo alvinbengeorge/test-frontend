@@ -11,10 +11,10 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="grid place-items-center h-screen">
-      <div className="bg-slate-200 p-16 rounded-xl shadow-lg hover:shadow-2xl hover:bg-slate-300 duration-300">
+      <div className="bg-slate-100 p-16 rounded-xl shadow-lg hover:shadow-2xl hover:bg-slate-200 duration-300">
         <h1 className="font-bold text-4xl text-center">Login</h1>
         <div className="grid place-items-center p-4 ">
-          <InputBox placeholder="Email" onChange={(event) => setEmail(event)} />
+          <InputBox placeholder="Username" onChange={(event) => setEmail(event)} />
           <InputBox
             placeholder="Password"
             onChange={(event) => setPassword(event)}

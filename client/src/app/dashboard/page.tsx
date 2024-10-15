@@ -58,7 +58,7 @@ export default function Home() {
       cash,
       stock,
       postGlobalInstalled,
-      postGlobalConfig,
+      postGlobalConfig
     });
   }, [
     officeType,
@@ -78,19 +78,22 @@ export default function Home() {
     stock,
     postGlobalInstalled,
     postGlobalConfig,
+    sideBarOption
   ]);
 
   return (
     <main>
-      <Navbar headerOption={headerOption} setHeaderOption={setHeaderOption} />
+      <Navbar headerOption={headerOption} setHeaderOption={setHeaderOption} setSideBarOption={setSideBarOption} sideBarOption={sideBarOption}/>
       <div className="flex">
-        <SideBar
-          sideBarOption={sideBarOption}
-          headerOption={headerOption}
-          setSideBarOption={setSideBarOption}
-        />
+        {sideBarOption !== "" && (
+          <SideBar
+            sideBarOption={sideBarOption}
+            headerOption={headerOption}
+            setSideBarOption={setSideBarOption}
+          />
+        )}
         <section className="w-full h-full flex-1">
-          <div className="grid place-items-center p-4 w-full h-full rounded-2xl bg-slate-100">
+          <div className="grid place-items-center p-4 w-full h-full rounded-2xl">
             <Heading />
             {screen === 0 && (
               <Screen0
