@@ -1,11 +1,7 @@
 "use client"
 import React, { useState } from "react";
+import { DropdownProps } from "../types";
 
-interface DropdownProps {
-  label: string;
-  options: string[];
-  onSelect: (value: string) => void;
-}
 
 const Dropdown = ({ label, options, onSelect }: DropdownProps) => {
   const [selectedOption, setSelectedOption] = useState<string>("");

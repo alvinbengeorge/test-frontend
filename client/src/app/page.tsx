@@ -1,222 +1,11 @@
 "use client";
 import Heading from "../components/heading";
-import InputBox from "../components/input_box";
-import Checkbox from "../components/checkbox";
-import Dropdown from "../components/dropdown";
 import { useEffect, useState } from "react";
-
-interface DeliverType {
-  letter: boolean;
-  parcel: boolean;
-  ems: boolean;
-}
-
-interface PostGlobalConfig {
-  boxKey: boolean;
-  eBill: boolean;
-  EMO: boolean;
-}
-
-interface Screen0Props {
-  setOfficeType: (value: string) => void;
-  setCompany: (value: string) => void;
-  setCustomFee: (value: boolean) => void;
-  setSubValue: (value: string) => void;
-  setLocationName: (value: string) => void;
-  setLocationId: (value: string) => void;
-  setIpsCode: (value: string) => void;
-}
-
-interface Screen1Props {
-  setDeliverTypes: (
-    value: DeliverType | ((prev: DeliverType) => DeliverType)
-  ) => void;
-  setOfflineCash: (value: boolean) => void;
-  setOfflineStamp: (value: boolean) => void;
-}
-
-interface Screen2Props {
-  setUnitCode: (value: string) => void;
-  setSubValueCenterCode: (value: string) => void;
-  setValueCenterCode: (value: string) => void;
-  setCash: (value: number) => void;
-  setStock: (value: number) => void;
-  setPostGlobalInstalled: (value: boolean) => void;
-  setPostGlobalConfig: (value: PostGlobalConfig | ((prev: PostGlobalConfig) => PostGlobalConfig)) => void;
-  postGlobalInstalled: boolean;
-}
-
-const Screen0 = ({
-  setOfficeType,
-  setCompany,
-  setCustomFee,
-  setSubValue,
-  setLocationName,
-  setLocationId,
-  setIpsCode,
-}: Screen0Props) => {
-  return (
-    <div className="grid p-4 w-full">
-      <div className="flex flex-wrap">
-        <Dropdown
-          label="Location Type"
-          options={["Post Office", "Sub Post Office"]}
-          onSelect={(value) => setOfficeType(value)}
-        />
-        <Checkbox
-          label="Custom fee to be collected at office"
-          onChange={(checked) => setCustomFee(checked)}
-        />
-      </div>
-      <Dropdown
-        label="Company"
-        options={["Company1", "Company2"]}
-        onSelect={(value: string) => setCompany(value)}
-      />
-      <Dropdown
-        label="Sub Value Center"
-        options={["Option1", "Option2"]}
-        onSelect={(value: string) => setSubValue(value)}
-      />
-      <InputBox
-        placeholder="Location Name"
-        onChange={(event) => setLocationName(event)}
-      />
-      <div className="flex w-full border-black">
-        <InputBox
-          placeholder="Location ID"
-          onChange={(value: string) => setLocationId(value)}
-        />
-        <InputBox
-          placeholder="IPS Code"
-          onChange={(value: string) => setIpsCode(value)}
-        />
-      </div>
-    </div>
-  );
-};
-
-const Screen1 = ({
-  setDeliverTypes,
-  setOfflineCash,
-  setOfflineStamp,
-}: Screen1Props) => {
-  return (
-    <div className="grid p-4 w-full lg:grid-cols-2 gap-2">
-      <div className="border p-2">
-        <h1 className="font-bold">This office delivers to</h1>
-        <div className="grid h-fit">
-          <Checkbox
-            label="Letter"
-            onChange={(checked) =>
-              setDeliverTypes((prev: DeliverType) => ({
-                ...prev,
-                letter: checked,
-              }))
-            }
-          />
-          <Checkbox
-            label="Parcel"
-            onChange={(checked) =>
-              setDeliverTypes((prev: DeliverType) => ({
-                ...prev,
-                parcel: checked,
-              }))
-            }
-          />
-          <Checkbox
-            label="EMS"
-            onChange={(checked) =>
-              setDeliverTypes((prev: DeliverType) => ({
-                ...prev,
-                ems: checked,
-              }))
-            }
-          />
-        </div>
-      </div>
-      <div className="grid border p-2">
-        <Checkbox
-          label="Allow Offline Cash Transaction"
-          onChange={(checked) => setOfflineCash(checked)}
-        />
-        <Checkbox
-          label="Allow OfflineStamp Transaction"
-          onChange={(checked) => setOfflineStamp(checked)}
-        />
-      </div>
-    </div>
-  );
-};
-
-const Screen2 = ({
-  setUnitCode,
-  setSubValueCenterCode,
-  setValueCenterCode,
-  setCash,
-  setStock,
-  setPostGlobalInstalled,
-  setPostGlobalConfig,
-  postGlobalInstalled
-}: Screen2Props) => {
-
-  return (
-    <div className="w-full grid gap-2">
-      <div className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-2 w-full">
-        <div className="p-2 border">
-          <h1 className="font-bold ps-2 underline">Finance Dimension Code</h1>
-          <div className="grid">
-            <InputBox
-              placeholder="Unit Code"
-              onChange={(value: string) => setUnitCode(value)}
-            />
-            <InputBox
-              placeholder="Sub Value Center Code"
-              onChange={(value: string) => setSubValueCenterCode(value)}
-            />
-            <InputBox
-              placeholder="Value Center Code"
-              onChange={(value: string) => setValueCenterCode(value)}
-            />
-          </div>
-        </div>
-        <div className="p-2 border">
-          <h1 className="font-bold ps-2 underline">
-            Authorized Maximum Balance
-          </h1>
-          <div className="grid">
-            <InputBox
-              placeholder="Cash"
-              onChange={(value: string) => setCash(parseInt(value))}
-            />
-            <InputBox
-              placeholder="Sub Value Center Code"
-              onChange={(value: string) => setStock(parseInt(value))}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="border">
-        <Checkbox
-          label="Post Global Installed"
-          onChange={(checked) => setPostGlobalInstalled(checked)}
-        />
-        {postGlobalInstalled && (<div className="grid p-4">
-          <Checkbox label="Box key deposite applicable?" onChange={
-            (checked) => setPostGlobalConfig((prev: PostGlobalConfig) => ({...prev, boxKey: checked}))
-          }/>
-          <Checkbox label="This office uses e-Bill Module" onChange={
-            (checked) => setPostGlobalConfig((prev: PostGlobalConfig) => ({...prev, eBill: checked}))
-          }/>
-          <Checkbox label="This office uses EMO Module" onChange={
-            (checked) => setPostGlobalConfig((prev: PostGlobalConfig) => ({...prev, EMO: checked}))
-          }/>
-
-        </div>)}
-      </div>
-    </div>
-  );
-};
+import { DeliverType, PostGlobalConfig } from "../types";
+import Screen0 from "../components/screen0";
+import Screen1 from "../components/screen1";
+import Screen2 from "@/components/screen2";
+import Summary from "@/components/summary";
 
 export default function Home() {
   const [screen, setScreen] = useState<number>(0);
@@ -239,7 +28,8 @@ export default function Home() {
   const [valueCenterCode, setValueCenterCode] = useState<string>("");
   const [cash, setCash] = useState<number>(0);
   const [stock, setStock] = useState<number>(0);
-  const [postGlobalInstalled, setPostGlobalInstalled] = useState<boolean>(false);
+  const [postGlobalInstalled, setPostGlobalInstalled] =
+    useState<boolean>(false);
   const [postGlobalConfig, setPostGlobalConfig] = useState<PostGlobalConfig>({
     boxKey: false,
     eBill: false,
@@ -264,7 +54,7 @@ export default function Home() {
       cash,
       stock,
       postGlobalInstalled,
-      postGlobalConfig
+      postGlobalConfig,
     });
   }, [
     officeType,
@@ -283,12 +73,12 @@ export default function Home() {
     cash,
     stock,
     postGlobalInstalled,
-    postGlobalConfig
+    postGlobalConfig,
   ]);
 
   return (
-    <section className="grid place-items-center h-screen ">
-      <div className="grid place-items-center p-4 border-black border w-full lg:w-1/2">
+    <section className="grid place-items-center h-screen">
+      <div className="grid place-items-center p-4 border-black border w-full lg:w-1/2 rounded-2xl bg-slate-100">
         <Heading />
         {screen === 0 && (
           <Screen0
@@ -321,9 +111,25 @@ export default function Home() {
           />
         )}
         {screen === 3 && (
-          <div>
-            
-          </div>
+          <Summary
+            officeType={officeType}
+            company={company}
+            customFee={customFee}
+            subValueCenter={subValueCenter}
+            locationName={locationName}
+            locationId={locationId}
+            ipscode={ipscode}
+            deliverTypes={deliverTypes}
+            offlineCash={offlineCash}
+            offlineStamp={offlineStamp}
+            unitCode={unitCode}
+            subValueCenterCode={subValueCenterCode}
+            valueCenterCode={valueCenterCode}
+            cash={cash}
+            stock={stock}
+            postGlobalInstalled={postGlobalInstalled}
+            postGlobalConfig={postGlobalConfig}
+          />
         )}
 
         <div className="w-full grid place-items-end">
@@ -354,7 +160,15 @@ export default function Home() {
                   }
                 }
                 if (screen === 2) {
-                  if (unitCode && subValueCenterCode && valueCenterCode && cash && stock && postGlobalInstalled && Object.values(postGlobalConfig).includes(true)) {
+                  if (
+                    unitCode &&
+                    subValueCenterCode &&
+                    valueCenterCode &&
+                    cash &&
+                    stock &&
+                    postGlobalInstalled &&
+                    Object.values(postGlobalConfig).includes(true)
+                  ) {
                     setScreen(screen + 1);
                   } else {
                     alert("Please fill all the fields");

@@ -1,10 +1,6 @@
 "use client"
 import React, { useState } from "react";
-
-interface InputBoxProps {
-  placeholder?: string;
-  onChange?: (value: string) => void;
-}
+import { InputBoxProps } from "../types";
 
 const InputBox = ({ placeholder, onChange }: InputBoxProps) => {
   const [value, setValue] = useState("");

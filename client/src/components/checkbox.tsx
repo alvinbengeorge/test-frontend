@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-
-interface CheckboxProps {
-  label: string;
-  checked?: boolean;
-  onChange?: (checked: boolean) => void;
-}
+import { CheckboxProps } from "../types";
 
 const Checkbox = ({
   label,
