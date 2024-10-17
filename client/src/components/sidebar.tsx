@@ -9,24 +9,24 @@ const Option1 = ({
     <div className={""}>
       <div className="grid gap-2 p-2">
         <button
-          onClick={() => setSideBarOption("Option1-1")}
+          onClick={() => setSideBarOption("branches")}
           className={
-            (sideBarOption === "Option1-1"
+            (sideBarOption === "branches"
               ? "bg-gray-900"
               : "bg-gray-600") + " p-2 rounded-xl"
           }
         >
-          Option 1 - 1
+          Branches
         </button>
         <button
-          onClick={() => setSideBarOption("Option1-2")}
+          onClick={() => setSideBarOption("countries")}
           className={
-            (sideBarOption === "Option1-2"
+            (sideBarOption === "countries"
               ? "bg-gray-900"
               : "bg-gray-600") + " p-2 rounded-xl"
           }
         >
-          Option 1 - 2
+          Countries
         </button>
       </div>
     </div>
@@ -44,60 +44,28 @@ const Option2 = ({
     <div>
       <div className="grid gap-2 p-2">
         <button
-          onClick={() => setSideBarOption("Option2-1")}
+          onClick={() => setSideBarOption("services")}
           className={
-            (sideBarOption === "Option2-1" ? "bg-gray-900" : "bg-gray-600") +
+            (sideBarOption === "services" ? "bg-gray-900" : "bg-gray-600") +
             " p-2 rounded-xl"
           }
         >
-          Option 2 - 1
+          Services
         </button>
         <button
-          onClick={() => setSideBarOption("Option2-2")}
+          onClick={() => setSideBarOption("additional-services")}
           className={
-            (sideBarOption === "Option2-2" ? "bg-gray-900" : "bg-gray-600") +
+            (sideBarOption === "additional-services" ? "bg-gray-900" : "bg-gray-600") +
             " p-2 rounded-xl"
           }
         >
-          Option 2 - 2
+          Additional Services
         </button>
       </div>
     </div>
   );
 };
 
-const Option3 = ({
-  setSideBarOption,
-  sideBarOption,
-}: {
-  setSideBarOption: (value: string) => void;
-  sideBarOption: string;
-}) => {
-  return (
-    <div>
-      <div className="grid gap-2 p-2">
-        <button
-          onClick={() => setSideBarOption("Option3-1")}
-          className={
-            (sideBarOption === "Option3-1" ? "bg-gray-900" : "bg-gray-600") +
-            " p-2 rounded-xl"
-          }
-        >
-          Option 3 - 1
-        </button>
-        <button
-          onClick={() => setSideBarOption("Option3-2")}
-          className={
-            (sideBarOption === "Option3-2" ? "bg-gray-900" : "bg-gray-600") +
-            " p-2 rounded-xl"
-          }
-        >
-          Option 3 - 2
-        </button>
-      </div>
-    </div>
-  );
-};
 
 export default function SideBar({
   headerOption,
@@ -111,22 +79,16 @@ export default function SideBar({
   return (
     <div className="h-screen w-64 bg-gray-800 text-white">
       <div className="p-2">
-        <h1 className="text-xl font-bold">{headerOption}</h1>
+        <h1 className="text-xl font-bold capitalize">{headerOption}</h1>
         <ul className="space-y-4">
-          {headerOption === "Option 1" && (
+          {headerOption === "master" && (
             <Option1
               setSideBarOption={setSideBarOption}
               sideBarOption={sideBarOption}
             />
           )}
-          {headerOption === "Option 2" && (
+          {headerOption === "tariff" && (
             <Option2
-              setSideBarOption={setSideBarOption}
-              sideBarOption={sideBarOption}
-            />
-          )}
-          {headerOption === "Option 3" && (
-            <Option3
               setSideBarOption={setSideBarOption}
               sideBarOption={sideBarOption}
             />
