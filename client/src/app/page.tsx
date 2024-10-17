@@ -13,7 +13,7 @@ const LoginPage: React.FC = () => {
     <section>
       <nav className="bg-gray-800 w-full p-4">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="text-white font-bold text-xl">Test</div>
+          <div className="text-white font-bold text-xl">PostGlobal Configurator</div>
         </div>
       </nav>
       <div className="grid place-items-center h-screen">
