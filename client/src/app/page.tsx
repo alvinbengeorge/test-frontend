@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import InputBox from "../components/input_box";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
