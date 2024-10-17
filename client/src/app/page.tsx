@@ -14,7 +14,7 @@ const LoginPage = () => {
       <nav className="bg-gray-800 w-full p-4">
         <div className="">
           <div>
-            <div className="text-white font-bold text-2xl">
+            <div className="text-white font-bold text-2xl flex">
               <svg
                 width="30px"
                 height="30px"
